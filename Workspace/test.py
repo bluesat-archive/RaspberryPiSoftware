@@ -3,30 +3,36 @@
 import RPIO
 import time
 
-GPIO.setup(2, GPIO.OUT)
-GPIO.setup(3, GPIO.OUT)
-GPOI.setup(4, GPIO.OUT)
+RPIO.setup(2, RPIO.OUT)
+RPIO.setup(3, RPIO.OUT)
+RPIO.setup(4, RPIO.OUT)
 
-def select (i)
-	if i!=0:
-		RPIO.OUT(i,False)
-	else:
-		RPIO.OUT(i,True)
+#def select (i):
+#	if i!= 0:
+#		RPIO.OUT(i,False)
+#	else:
+#		RPIO.OUT(i,True)
+
+#initializing all leds to be off
+
+try:
+      while True:
+	      colour = raw_input( "Enter colour:")
+	      if colour == 'O':
+		      i = 0
+	      elif colour == 'B':
+		      RPIO.OUT(2, False)
+	      elif colour == 'G':
+		      RPIO.OUT(3, False)
+	      elif colour == 'R':
+		      RPIO.OUT(4, False)
+	      else:
+		      print "invalid input"; i = -1
 
 
 
-def getColour (i)
-	colour = raw_input( "Enter colour:")
-	
-	if colour == 'O':
-		i = 0
-	elif colour == 'B'|| colour == 'b':
-		i = 2
-	elif colour == 'G'|| colour == 'g':
-		i = 3
-	elif colour == 'R'|| colour == 'r':
-		i = 4
-	else:
-		print "invalid input"
+except KeyboardInterrupt:
+      for i in range(2,5):
+            RPIO.OUTPUT(i, True)
+      RPIO.cleanup()
 
-	select (i)
