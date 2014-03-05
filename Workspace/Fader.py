@@ -3,6 +3,12 @@
 # Edited from http://RasPi.tv/2013/how-to-use-soft-pwm-in-rpi-gpio-pt-2-led-dimming-and-motor-speed-control
 
 
+"""
+Bugs:
+- LED flickering during fades
+- Program quitting randomly
+"""
+
 RED = 4
 GREEN = 3
 BLUE = 2
@@ -14,7 +20,7 @@ from time import sleep
 
 
 def setup():
-    GPIO.setmode(GPIO.BCM)    # orig GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
     for colour in [RED, GREEN, BLUE]:
         GPIO.setup(colour, GPIO.OUT)
         GPIO.output(colour, True)
@@ -23,53 +29,49 @@ def setup():
 def fade(colFin, colInit, totalTime):
     col1 = GPIO.PWM(colInit, 100)
     col2 = GPIO.PWM(colFin, 100)
-    pauseTime = 0.1 #totalTime/100
-    for i in range(0,101):      # 101 because it stops when it finishes 100
+    pauseTime = totalTime/100.0 # .0 causes float division
+    for i in range(0,101):
         col1.ChangeDutyCycle(100 - i)
-        col2.ChangeDutyCycle(i)
+        col2.ChangeDutyCycle(i)     
+        #GPIO.PWM(colFin, 100).ChangeDutyCycle(i) # functional, but screws with colour order
         sleep(pauseTime)
-    #print "finished one cycle"
+      
 
-
-
-"""
-fade(colInit, colFin, totalTime):
-    pauseTime = totalTime/100
-    for i in range(0,101):              # 101 because it stops when it finishes 100
-        GPIO.PWM(colInit, 100).ChangeDutyCycle(i)
-        GPIO.PWM(colFin, 100).ChangeDutyCycle(100 - i)
-        sleep(pauseTime)
-
-"""
-
+# Main
 setup()
-# Necessary? (included in fade())
 red = GPIO.PWM(RED, 100)        # create object red for PWM on port RED at 100 Hertz
-green = GPIO.PWM(GREEN, 100)    # how to incorporate into setup()? [how to pass arrays in/out of fn's?]
+green = GPIO.PWM(GREEN, 100)
 blue = GPIO.PWM(BLUE, 100)
 
-
-red.start(100)                    # red on 0% duty cycle (off)
+red.start(100)                  # Turn off all LEDs (100 is LED off)
 green.start(100)
-blue.start(100)                # green on 100% (fully on)
+blue.start(100)
 
-intervalTime = 1                # Time to change between solid colours
-
+intervalTime = 1                # Time taken to change between solid colours (seconds)
+iteration = 0                   # For debugging - program quits unexpectedly
 
 try:                            # 'try' is used to GPIO.cleanup() when program is interrupted
     while True:
+        print "iteration: " + str(iteration)
+        red.start(0)            # Turns on red only
+        green.start(100)
         blue.start(100)
         fade(RED, GREEN, intervalTime)
-        print "from red to green done"
-        red.start(100)                    # red on 0% duty cycle (off)
+        #print "RG done"
+        red.start(100)
+        green.start(0)
+        blue.start(100)
         fade(GREEN, BLUE, intervalTime)
-        print "GB done"
+        #print "GB done"
+        red.start(100)
         green.start(100)
+        blue.start(0) 
         fade(BLUE, RED, intervalTime)
-        print "BR done"
+        #print "BR done"
+        iteration += 1
 
 except KeyboardInterrupt:
-    red.stop()                  # stop the white PWM output
+    red.stop()
     green.stop()
     blue.stop()
     GPIO.cleanup()              # clean up GPIO on CTRL+C exit
