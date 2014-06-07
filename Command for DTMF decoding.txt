@@ -1,0 +1,1 @@
+sudo rtl_fm -f 144.5e6 -M fm -s 260k -r 22050 -g 50 | multimon -t raw /dev/stdin -a DTMF
