@@ -1,6 +1,6 @@
 This is the command line tool used to get the Software Defined Radio to receive the signals produced by the YEASU. 
 
-sudo rtl_fm -f 145.926e6 -M wbfm -s 260k -r 22050 -g 50 -o 1 |aplay -r 22050 -f S16_LE -c 1 -q -V mono -D sysdefault:CARD=ALSA
+sudo rtl_fm -f 145.926e6 -M wbfm -s 260k -r 22050 -g 50 | aplay -r 22050 -f S16_LE -c 1 -q -V mono -D sysdefault:CARD=ALSA
 
 Unfortunately the amplitude on the modulation was not enough to produce a reasonable strength signal.
 
@@ -8,10 +8,10 @@ The command to get multimon decode a DTMF audio file was
 
 sox -t wav audio.wav -esigned-integer -b16 -r 22050 -t raw | ./build/multimon-ng -a DTMF -
 
-Note that the final dash may not be right and that it might be followed by ?multimon-ng? .
+Note that the final dash may not be right and that it might be followed by multimon-ng .
 
 A note regarding this…
 
-sudo rtl_fm -f 145.926e6 -M fm -s 260k -r 22050 -g 50 -o 1 |aplay -r 22050 -f S16_LE -c 1 -q -V mono -D sysdefault:CARD=ALSA
+sudo rtl_fm -f 145.926e6 -M fm -s 260k -r 22050 -g 50 | aplay -r 22050 -f S16_LE -c 1 -q -V mono -D sysdefault:CARD=ALSA
 
 Does produce a slightly louder and higher quality signal, (I think) when receiving transmissions from the Yeasu. It’s still not very loud though and probably isn’t enough with audio coupling.
