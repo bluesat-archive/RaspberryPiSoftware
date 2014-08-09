@@ -44,22 +44,21 @@ eject = 3
 GPIO.setup(eject, GPIO.OUT)
 GPIO.output(eject,True) #active low, so it's by default high
 
-while(dtmfIn != expIn): #watch that out by one error
-    #Wait???
-    string = raw_input()
-    # remove the 'DTMF: ' bit 
-    s = string[6]
-    newIn = dict1[s]
-    if (newIn != oldIn):
-        dtmfIn[count] = newIn
-        count = count + 1
-    oldIn = newIn
-    if (count >= 8):
-        count = 0
-        print "checked"
-        print dtmfIn
-    
-GPIO.output(eject,False)
-GPIO.cleanup()
-
-print('Eject')
+while (True):
+    while(dtmfIn != expIn): 
+       string = raw_input()
+       # remove the 'DTMF: ' bit 
+       s = string[6] # this number may need changing  
+       newIn = dict1[s] # fix issue regarding newline
+       if (newIn != oldIn):
+           dtmfIn[count] = newIn
+           count = count + 1
+           oldIn = newIn
+       if (count >= 8):
+           count = 0
+           print "checked"
+           print dtmfIn
+           if (dtmfIn == expIn):
+               GPIO.output(eject,False)
+               GPIO.cleanup()
+               print('Eject')
