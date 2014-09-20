@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+while read line
+do
+	if ( echo "$line" | grep -q '^DTMF: ' )
+	then
+		extracted=$(echo "$line" | cut -f2- -d' ' )
+		echo "$extracted"
+	fi
+done
+	
