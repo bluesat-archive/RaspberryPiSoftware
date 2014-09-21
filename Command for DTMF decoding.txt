@@ -1,5 +1,0 @@
-sudo rtl_fm -f 144.5e6 -M fm -s 260k -r 22050 -g 50 | multimon -t raw /dev/stdin -a DTMF
-
-A useful website providing information on this kind of thing is:
-
-http://kmkeen.com/rtl-demod-guide/
