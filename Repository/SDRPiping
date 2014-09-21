@@ -1,4 +1,0 @@
-#!/bin/bash
-sudo rtl_fm -f $1 -s 22050 -r 22050 -g 25 ./soundfifo.raw
-# This shell script will put the output of the SDR into a file.
-# You need to have a fifo set up first with mkfifo "name of fifo"

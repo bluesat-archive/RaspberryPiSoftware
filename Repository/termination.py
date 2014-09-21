@@ -61,7 +61,7 @@ while(True): #main loop
     proc1 = subprocess.Popen("sudo multimon -a DTMF -t raw ./soundfifo.raw > multimon.log", shell = True) # may to multithread
     proc2 = subprocess.Popen("sudo rtl_fm -M fm -f 436e6 -s 260k -r 22050 -g 50 ./soundfifo.raw", shell = True)
     
-    time.sleep(30) #wait for 30 minutes 
+    time.sleep(30) #wait for 30 seconds 
     # close programs
     if (proc1.kill())
     {

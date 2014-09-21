@@ -18,6 +18,6 @@ def runProg(threadname, string):
 
 try:
     thread.start_new_thread(runProg,("Thread 1", "/home/pi/RaspberryPiSoftware/Repository/namuruLog.sh",))
-    thread.start_new_thread(runProg("Thread 2", "/home/pi/playRadio.sh",) )
+    thread.start_new_thread(runProg("Thread 2", "/home/pi/RaspberryPiSoftware/Repository/timer.py",) )
 except:
     print "U wot m8"
