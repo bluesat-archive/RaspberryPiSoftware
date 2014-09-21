@@ -7,7 +7,7 @@
 
 int main()
 {
-	char target[]="12951295";
+	char target[]="11111111";
 	int position = 0;
 
 	int running = TRUE;

@@ -2,7 +2,10 @@
 
 cd /home/pi/balloon_launch
 
-namuru/namuruLog.sh &
 
 cd dtmf_seperation 
-./manager
+./manager &
+
+cd ..
+namuru/namuruLog.sh
+
