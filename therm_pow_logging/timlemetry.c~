@@ -68,12 +68,28 @@ int main (int argc, char **argv){
 void serialInit(){
 	FILE *init = fopen("serials","r");
 	serialID temp;
-	char string[100];
+
 	int i;
 	int j = 0;
 	char c = fgetc(init);
-	while (){
-		strcpy(temp.serial,strtok(fgets(string, 100, init)," \n"));
-		strcpy(temp.name,strtok(0," \n"));
+	while (c != EOF){
+		i = 0;
+		while (c != ' '){
+			temp.serial[i] = c;
+			i++;
+			c = fgetc(init);
+		}
+		temp.serial[i] = 0;
+		i = 0;
+		c = fgetc(init);
+		while (c != '\n'){
+			temp.name[i] = c;
+			i++;
+			c = fgetc(init);
+		}
+		temp.name[i] = 0;
+		c = fgetc(init);
+		g_sensors[j] = temp;
+		j++;
 	}
 }
