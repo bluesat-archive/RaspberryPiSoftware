@@ -14,7 +14,7 @@ if (Pinstate == 0):
 else:
 	Pinstate = True
 
-if EjectPin > 40 :
+if EjectPin > 30 :
 	print "invalid pinnumber"
 
 #configuring eject pin
