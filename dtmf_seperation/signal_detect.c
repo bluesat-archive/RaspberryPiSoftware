@@ -33,7 +33,7 @@ int main()
 					// We have a match
 					position = 0;
 					printf("\n\033[32mMATCH MADE\033[0m\n");
-					system("./setPin.py 3 0");
+					system("./setPin.py 13 0");
 				}
 			}
 			else 
