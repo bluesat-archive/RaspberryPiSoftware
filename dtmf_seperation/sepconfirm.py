@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
-sigout = 7
+sigout = 12
 sigin = 11
 GPIO.setup(sigout,GPIO.OUT)
 GPIO.setup(sigin,GPIO.IN)
