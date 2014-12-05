@@ -52,15 +52,11 @@ if debug == 1:
 	for name in l_serials:
 		print name, ' : ', d_serials[name]
 
-
-# opens the log file to be appended to.
-file_object = open('telem_log', 'a')
-
 # opens the log files to be appended to for each sensor
 d_logs = {}
 
 for name in l_serials:
-	d_logs[name] = open(name + '_log', 'a')
+	d_logs[name] = open('logs/' + name + '_log', 'a')
 
 # start the main loop
 while True:
@@ -85,7 +81,7 @@ while True:
 		timeStamp = time0.strftime("%Y-%m-%d %H:%M:%S:%f")
 		d_logs[name].write(timeStamp + ',' + name + '=' + tempC)
 		if debug == 1:
-			print timeStamp + ',' + name + '=' + tempC
+			print timeStamp + ' ' + name + '=' + tempC
 
 	# repeat logging after 1 second interval
 	time.sleep(1)
