@@ -57,6 +57,8 @@ d_logs = {}
 
 for name in l_serials:
 	d_logs[name] = open('logs/' + name + '_log', 'a')
+	d_logs[name].write('=====================\n  Logging restarted\n=====================\n')
+
 
 # start the main loop
 while True:
@@ -79,10 +81,8 @@ while True:
 		tempC = sens_data.split(' t=')[1]
 
 		timeStamp = time0.strftime("%Y-%m-%d %H:%M:%S:%f")
-		d_logs[name].write(timeStamp + ',' + name + '=' + tempC)
+		d_logs[name].write(timeStamp + ' ' + name + '=' + tempC)
 		if debug == 1:
 			print timeStamp + ' ' + name + '=' + tempC
 
-	# repeat logging after 1 second interval
-	time.sleep(1)
 	
