@@ -42,7 +42,10 @@ trap cleanup EXIT
 # ====  Main ====
 alert "Manager started at $temp"
 
+#Start the 'Active High' DTMF pin
 ./setPin.py 13 1
+#Set the 'Ready to recieve' pin
+./setPin.py 16 1
 
 mkdir $temp
 mkfifo $rawfifo
@@ -52,5 +55,4 @@ rtl_fm -M fm -f 436e6 -s 260k -r 22050 -g 50 $rawfifo &
 $multimonbin -a DTMF -t raw $rawfifo > $multimonfifo &
 
 ./multimon_processing < $multimonfifo | ./signal_detect
-
 wait
