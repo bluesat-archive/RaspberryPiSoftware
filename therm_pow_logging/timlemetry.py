@@ -13,7 +13,7 @@
 import time
 from datetime import datetime
 
-debug = 1
+debug = 0
 
 
 # opens the initialisation file
@@ -39,11 +39,11 @@ for key in init_list:
 		print temp[1] 
 		print temp[0], "written!"
 
-
 l_serials = d_serials.keys() 
 # l_serials is a list of the keys of the dictionary. the keys are always names, so this list will only contain
 # the names of each sensor
 
+# close the init file
 f_init.close()
 
 
@@ -56,25 +56,37 @@ if debug == 1:
 # opens the log file to be appended to.
 file_object = open('telem_log', 'a')
 
+# opens the log files to be appended to for each sensor
+d_logs = {}
+
+for name in l_serials:
+	d_logs[name] = open(name + '_log', 'a')
+
 # start the main loop
 while True:
 
-		# pulls in the neccessary data from sensors
-		time0 = datetime.now()
-		tempC = int(open('/sys/class/thermal/thermal_zone0/temp').read())/1e3	
-		timeStamp = time0.strftime("%Y/%m/%d %H:%M:%S:%f")
-		count = count + 1
+	# loop to go through each sensor individually and retrieve its data
+	for name in l_serials:
+		address = '/sys/bus/w1/devices/' + d_serials[name] + '/w1_slave'
+		if debug == 1:
+			print "address is " + address
 		
-		# outputs the data to appropriate file
-		if tempC > 40:
-			# critical temp exceeded writes to critical file and normal file
-			file_object_crit.write(repr(count) + ',' + repr(timeStamp) + ',' + repr(tempC) + '\n')
-			file_object.write(repr(count) + ',' + repr(timeStamp) + ',' + repr(tempC) + '\n')
-		else:
-			# normal temp only writes to normal file
-			file_object.write(repr(count) + ',' + repr(timeStamp) + ',' + repr(tempC) + '\n')
-		print count
+		# get the current time
+		time0 = datetime.now()
 
-		# repeat logging after 1 second interval
-		time.sleep(1)
+		# get the response from the sensor
+		sens_data = open(address).read()
+		if debug == 1:
+			print sens_data
+
+		# seperate the fluff from the numbers
+		tempC = sens_data.split(' t=')[1]
+
+		timeStamp = time0.strftime("%Y-%m-%d %H:%M:%S:%f")
+		d_logs[name].write(timeStamp + ',' + name + '=' + tempC)
+		if debug == 1:
+			print timeStamp + ',' + name + '=' + tempC
+
+	# repeat logging after 1 second interval
+	time.sleep(1)
 	
