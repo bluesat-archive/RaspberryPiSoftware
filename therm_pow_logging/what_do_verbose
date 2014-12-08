@@ -1,0 +1,38 @@
+these are why we do the things to be done to make I2C work
+
+in a file called /etc/modprobe.d/raspi-blacklist.conf
+use the command
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+
+and edit it so that the line
+
+blacklist i2c-bcm2708
+
+reads
+
+#blacklist i2c-bcm2708
+// This is to set the module blacklist off so that the i2c systems can run and use the i2c gpio pins
+
+then add i2c-dev to the /etc/modules
+// this is so i2c module loads automatically on boot
+
+install the packages using sudo apt-get install
+i2c-tools
+python-smbus
+// installing these packages allows python to use the smbus functions, skipping most of the legwork
+
+use the command
+sudo adduser pi i2c
+// gives the user access to the i2c subsystems so that the i2c-tools will work
+
+use sudo reboot or sudo modprobe i2c-dev 
+// either loads the i2c-dev module to be used by i2c-tools
+
+to see the i2c devices connected, use
+i2cdetect -y 1
+// you need this to find out what address to use in the program
+
+
+the power sensor is probably at address 4c, but if you don't know which one it is, use
+powerlog.py
+changing the address to each address to try and figure out which device is the correct one

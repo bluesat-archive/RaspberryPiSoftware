@@ -56,7 +56,7 @@ if debug == 1:
 d_logs = {}
 
 for name in l_serials:
-	d_logs[name] = open('logs/' + name + '_log', 'a')
+	d_logs[name] = open('logs/' + name + '_log', 'a', 0)
 	d_logs[name].write('=====================\n  Logging restarted\n=====================\n')
 
 
