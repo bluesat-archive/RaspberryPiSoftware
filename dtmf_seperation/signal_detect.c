@@ -8,7 +8,9 @@
 int main()
 {
 	char target[]="11111111";
-	int position = 0;
+	char testTarget[]="55555555";
+        int position = 0;
+        int positionTest = 0;
 
 	int running = TRUE;
 	while ( running )
@@ -36,9 +38,21 @@ int main()
 					system("./setPin.py 13 0");
 				}
 			}
+                        else if ( in == testTarget[position]) {
+                                printf(" ###");
+                                positionTest++;
+                                if ( positionTest == strlen(testTarget) )
+				{
+					// We have a match
+					positionTest = 0;
+					printf("\n\033[32mTEST SIGNAL CONFIRMED\033[0m\n");
+                                        //Need to implement: pinout to display 'test successful' LED
+				}
+                        }
 			else 
 			{
 				position = 0;
+                                positionTest = 0;
 			}
 			printf("\n");
 		}

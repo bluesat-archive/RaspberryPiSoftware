@@ -27,8 +27,13 @@ function alert()
 
 # Tempfiles
 temp=/tmp/blueballoon_$$
-rawfifo=${temp}/raw.fifo
+rawfifo=${temp}/raw.raw
 multimonfifo=${temp}/multimon.fifo
+afifo=${temp}/a.raw
+anotherfifo=${temp}/b.raw
+loadsafifo=${temp}/c.wav
+
+
 
 function cleanup()
 {
@@ -36,7 +41,7 @@ function cleanup()
 	pkill -P $$
 	rm $temp -r
 }
-# trap cleanup EXIT 
+trap cleanup EXIT 
 
 
 # ====  Main ====
@@ -50,9 +55,17 @@ alert "Manager started at $temp"
 mkdir $temp
 mkfifo $rawfifo
 mkfifo $multimonfifo
+mkfifo $afifo
+mkfifo $anotherfifo
 
-rtl_fm -M fm -f 436e6 -s 260k -r 22050 -g 50 $rawfifo &
-$multimonbin -a DTMF -t raw $rawfifo > $multimonfifo &
+rtl_fm -M fm -f 436e6 -s 260k -r 22050 -g 50 $afifo &
+#sox -r 22050 -e signed-integer -b 16 -v 3.0 $afifo -r 22050 -e signed-integer -b 16 $anotherfifo &
+tee $anotherfifo < $afifo | aplay -t raw -f S16_LE -r 22050 &
+
+#| tee >(sox -t raw -r 22050 - soxTest.wav -g 10) \
+#  >(aplay -t raw -f S16_LE -r 22050) > cthulu.raw &
+
+$multimonbin -a DTMF -t raw $anotherfifo > $multimonfifo &
 
 ./multimon_processing < $multimonfifo | ./signal_detect
 wait
