@@ -34,9 +34,11 @@ function cleanup()
 {
 	alert "Manager cleaning up"
 	pkill -P $$
+	# sleep to ensure all the processes are killed before the temp files get killed, prevents segfaults
+	sleep 0.5
 	rm $temp -r
 }
-# trap cleanup EXIT 
+trap cleanup EXIT
 
 
 # ====  Main ====

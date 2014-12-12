@@ -1,5 +1,5 @@
-rm A_log
-rm B_log
-rm C_log
-rm D_log
-rm E_log
+rm -f A_log
+rm -f B_log
+rm -f C_log
+rm -f D_log
+rm -f E_log
