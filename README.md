@@ -1,4 +1,15 @@
 Ballon detachment code for bluesat.org
+Version: Stuart_B 1.0
+All hail our glorious leader
+
+Features in this version
+========================
+Stuart_B 1.0 includes a script which automatically installs all the requisite libraries needed
+to operate the Raspberry Pi in flight. The file can be found in
+RaspberryPiSoftware/newInstallSetup/EXECUTE_ME
+and further documentation can be found in what_do
+
+
 
 Function and code overview
 ==========================
