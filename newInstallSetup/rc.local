@@ -17,10 +17,15 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-# Begin master.sh
+# Set the system clock using the real time clock
+echo  pcf2127a 0x51 > /sys/class/i2c-adapter/i2c-1/new_device
+( sleep 2; hwclock -s ) &
 
+
+# Begin master.sh
 cd /home/pi/RaspberryPiSoftware
 sudo ./master.sh &
+
 
 
 exit 0

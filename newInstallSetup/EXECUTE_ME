@@ -1,11 +1,12 @@
-#!bin/sh
+#!/bin/sh
 # installing shit
 
 echo "Don't leave your seats, you're gonna need to press y a bunch of times"
 sleep 5
 
 sudo apt-get update
-sudo apt-get install i2c-tools multimon python qt4-dev-tools libusb-1.0 cmake sox gcc
+sudo apt-get upgrade
+sudo apt-get install i2c-tools multimon python qt4-dev-tools libusb-1.0 cmake sox gcc wget
 sleep 5
 
 cd /home/pi
@@ -31,10 +32,16 @@ make
 sudo make install
 
 cd /home/pi/programs
+sudo wget http://afterthoughtsoftware.com/files/linux-image-3.6.11-atsw-rtc_1.1_armhf.deb
+sudo dpkg -i linux-image-3.6.11-atsw-rtc_1.1_armhf.deb
+sudo cp /boot/vmlinuz-3.6.11-atsw-rtc+ /boot/kernel.img
 
+cd /home/pi/programs
 
 
 # config files
+echo copying config files
 sudo cp /home/pi/RaspberryPiSoftware/newInstallSetup/raspi-blacklist.conf /etc/modprobe.d/raspi-blacklist.conf
 sudo cp /home/pi/RaspberryPiSoftware/newInstallSetup/rc.local /etc/rc.local
 sudo cp /home/pi/RaspberryPiSoftware/newInstallSetup/modules /etc/modules
+echo setup complete.
