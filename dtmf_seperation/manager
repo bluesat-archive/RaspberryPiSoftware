@@ -46,8 +46,11 @@ alert "Manager started at $temp"
 
 #Start the 'Active High' DTMF pin
 ./setPin.py 13 1
+alert "PIN 13 HIGH"
+
 #Set the 'Ready to recieve' pin
 ./setPin.py 16 1
+alert "PIN 16 HIGH"
 
 mkdir $temp
 mkfifo $rawfifo

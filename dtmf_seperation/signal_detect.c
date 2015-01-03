@@ -35,7 +35,8 @@ int main()
 					// We have a match
 					position = 0;
 					printf("\n\033[32mMATCH MADE\033[0m\n");
-					system("./setPin.py 13 0");
+					system("./setPin.py 13 0"); // Turn pin 13 to low
+					system("./setPin.py 26 1"); // Turn pin 26 to high, to indicate sep mech activation
 				}
 			}
                         else if ( in == testTarget[position]) {

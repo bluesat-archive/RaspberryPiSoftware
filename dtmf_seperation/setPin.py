@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sys
 import RPi.GPIO as GPIO
-GPIO.setmode (GPIO.BOARD) # PINS ARE LABALLED ACCORDING TO THE STUFF ON THE BOARD. NO MORE CONFUSIOn
+GPIO.setmode (GPIO.BOARD) # PINS ARE LABELLED ACCORDING TO THE STUFF ON THE BOARD. NO MORE CONFUSION
 
 
 #the command line argument is in the form fo "pinnumber pinstate"
