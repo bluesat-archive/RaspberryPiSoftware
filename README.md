@@ -1,9 +1,13 @@
 Ballon detachment code for bluesat.org
-Version: Stuart_R 1.0
+Version: Stuart_R 1.1
 All hail our glorious leader
 
 Features in this version
 ========================
+Stuart_R 1.1 includes modifications to the code to implement the yellow test LED that switches on 
+when the test signal "55555555" is recieved.
+
+
 Stuart_R 1.0 includes a script which automatically installs all the requisite libraries needed
 to operate the Raspberry Pi in flight. The file can be found in
 RaspberryPiSoftware/newInstallSetup/EXECUTE_ME
