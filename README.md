@@ -1,9 +1,12 @@
 Ballon detachment code for bluesat.org
-Version: Stuart_R 1.1
+Version: Stuart_R 1.2
 All hail our glorious leader
 
 Features in this version
 ========================
+Stuart_R 1.2 modifies the DTMF signals used. The detachment code is now "1111" and the yellow test LED now 
+toggles whenever a 5 is recieved.
+
 Stuart_R 1.1 includes modifications to the code to implement the yellow test LED that switches on 
 when the test signal "55555555" is recieved.
 
