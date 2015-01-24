@@ -18,7 +18,7 @@ if [ "$_IP" ]; then
 fi
 
 # Set the system clock using the real time clock
-echo  pcf2127a 0x51 > /sys/class/i2c-adapter/i2c-1/new_device
+echo  pcf2127 0x51 > /sys/class/i2c-adapter/i2c-1/new_device
 ( sleep 2; hwclock -s ) &
 
 
