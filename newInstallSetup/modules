@@ -10,3 +10,4 @@ w1_therm strong_pullup=1
 i2c_dev
 i2c_bcm2708
 rtc-pcf2127a
+rtc-pcf2127
